@@ -8,8 +8,8 @@ POST          /logout
 
 #### user routs only
 GET          /stories                   users can view a list of stories on homepage along with these status
-GET          /stories/:storyID           users can read a specific story
-POST         /stories/:storyID            users can add contributions to an existing story
+GET          /stories/:storyID          users can read a specific story
+POST         /stories/:storyID          users can add contributions to an existing story
 
 #### Only a creators
 GET           /myStories
