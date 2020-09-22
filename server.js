@@ -20,36 +20,36 @@ app.use(cookieSession({
 
 // ------------------------------------------
 
-const stories = {
-  "1": { title: "Breez", content: "Beatiful weather", userID: "userRandomID"},
-  "2": { title: "weather", content: "nice weather", userID: "userRandomID"},
-  "3": { title: "hot", content: "hot weather", userID: "user2RandomID"},
-  "3": { title: "cold", content: "cold weather", userID: "user"}
-};
+// const stories = {
+//   "1": { title: "Orange", content: "Beatiful weather", userID: "userRandomID"},
+//   "2": { title: "weather", content: "nice weather", userID: "userRandomID"},
+//   "3": { title: "hot", content: "hot weather", userID: "user2RandomID"},
+//   "3": { title: "cold", content: "cold weather", userID: "user"}
+// };
 
-const users = {
-  "BobSmith": {
-    id: 1,
-    name: "Bob",
-    username: "BobSmith",
-    password: "purple",
-    avatar_url: "/images/av1.png"
-  },
-  "SamSmith": {
-    id: 2,
-    name: "Sam",
-    username: "SamSmith",
-    password: "orange",
-    avatar_url: "/images/av2.png"
-  },
-  "TonySmith": {
-    id: 3,
-    name: "Tony",
-    username: "TonySmith",
-    password: "black",
-    avatar_url: "/images/av3.png"
-  },
-};
+// const users = {
+//   "BobSmith": {
+//     id: 1,
+//     name: "Bob",
+//     username: "BobSmith",
+//     password: "purple",
+//     avatar_url: "/images/av1.png"
+//   },
+//   "SamSmith": {
+//     id: 2,
+//     name: "Sam",
+//     username: "SamSmith",
+//     password: "orange",
+//     avatar_url: "/images/av2.png"
+//   },
+//   TonySmith: {
+//     id: 3,
+//     name: "Tony",
+//     username: "TonySmith",
+//     password: "black",
+//     avatar_url: "/images/av3.png"
+//   },
+// };
 
 
 
@@ -78,11 +78,13 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const storiesRoutes = require("./routes/stories");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
+app.use("/api/stories", storiesRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
@@ -92,13 +94,14 @@ app.use("/api/widgets", widgetsRoutes(db));
 
 
 app.get("/", (req, res) => {
-  const templateVars = {username: req.session.username}
+  const templateVars = {user: {username: req.session.username} }
  res.render("index", templateVars);
 });
 
 
+
  app.get("/login", (req, res) => {
-   const templateVars = {username: req.session.username}
+  const templateVars = {user: {username: req.session.username} }
    res.render("login", templateVars);
  });
 
@@ -106,32 +109,58 @@ app.get("/", (req, res) => {
 
  app.post("/login", (req, res) => {
    const { username, password } = req.body
-   if (users[username].password === password) {
-     req.session.username = username;
-     res.redirect("/");
-   } else {
-     res.status(403).send({message: "Username or Password entered not valid!"});
-   }
- });
+   console.log(username, password)
+     db.query(`SELECT * FROM users WHERE username='${username}';`)
+      .then (data => {
+        const dbPassword = data.rows[0].password
+        console.log(data.rows)
+        if (dbPassword === password) {
+          req.session.username = username;
+          req.session.user_id = data.rows[0].id
+          res.redirect("/");
+        } else {
+          res.status(403).send({message: "Username or Password entered not valid!"});
+        }
+      })
+  });
 
 
 
  app.get("/register", (req, res) => {
-   const templateVars = {username: req.session.username}
+  const templateVars = {user: {username: req.session.username} }
    res.render("register", templateVars);
  });
 
 
+
 app.post("/logout", (req, res) => {
- req.session = null;
+ req.session.username = null;
  res.redirect("/");
 });
 
 
+
 app.get("/mystories", (req, res) => {
- const templateVars = {username: req.session.username}
- res.render("mystories", templateVars);
+  let username = req.session.username
+  db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
+  .then (data => {
+    console.log('this is a test for data.rows', data.rows)
+    let userObj = data.rows[0]
+    const templateVars = {user: userObj}
+    console.log('test for templateVArs', templateVars)
+    if (userObj) {
+      res.render("mystories", templateVars);
+    }
+    else {
+      res.status(403).send({message: "You have to be logged in to see this content!"});
+    }
+    })
+  .catch(err => {
+    res.status(403).send({message: "You have to be logged in to see this content!"});
+  });
 })
+
+
 
 
 

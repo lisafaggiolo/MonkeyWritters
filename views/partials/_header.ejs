@@ -9,14 +9,14 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <% if (username) { %>
+        <% if (user) { %>
         <a class="nav-item nav-link" href="/mystories">My Stories</a>
         <a class="nav-item nav-link" href="/stories/new">Create Story</a>
       <div class="form-inline" style="margin-left: 800px;">
 
 
           <form method="POST" action="/logout" class="form-inline">
-            <span style="color: white;">Logged In As: <%= username %></span>
+            <span style="color: white;">Logged In As: <%= user.username %></span>
           <button type="submit" class="btn btn-success logoutbtn">Logout</button>
         </form>
         </div>
