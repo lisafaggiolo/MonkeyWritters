@@ -7,10 +7,12 @@
 
 const express = require('express');
 const router  = express.Router();
+const dbHelpers = require('./helpers/dbHelpers.js');
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+    let query = `SELECT * FROM users`;
+    db.query(query)
       .then(data => {
         const users = data.rows;
         res.json({ users });
@@ -21,5 +23,23 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.post('/register', (req, res) => {
+    const { name, avatar, username, password } = req.body;
+    let user = {
+      name,
+      avatar,
+      username,
+      password
+    }
+
+    dbHelpers.addUser(user)
+    .then(() => {
+
+      res.redirect('/')
+    })
+
+  })
   return router;
 };
+

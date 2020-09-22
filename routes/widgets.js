@@ -1,3 +1,4 @@
+
 /*
  * All routes for Widgets are defined here
  * Since this file is loaded in server.js into api/widgets,
@@ -10,7 +11,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM widgets`;
+    let query = `SELECT * FROM prospects`;
     console.log(query);
     db.query(query)
       .then(data => {

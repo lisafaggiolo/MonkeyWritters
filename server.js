@@ -51,7 +51,12 @@ app.use(cookieSession({
 //   },
 // };
 
+// const {
+//   getUserId,
 
+// } = require('./routes/helpers/dbHelpers', )
+
+// ------------------------------------------
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -130,6 +135,7 @@ app.get("/", (req, res) => {
   const templateVars = {user: {username: req.session.username} }
    res.render("register", templateVars);
  });
+
 
 
 
