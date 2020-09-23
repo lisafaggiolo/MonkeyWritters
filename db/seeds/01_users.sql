@@ -1,7 +1,7 @@
 -- Users table seeds here (Example)
 INSERT INTO users (name, username, password, avatar_url)
-VALUES ('Alice','alice sue', 'password1' ,'pic'),
-('Bob', 'BobSmith', 'password','pic'),
+VALUES ('Alice','alice sue', 'password1' ,'/images/av1.png'),
+('Bob', 'BobSmith', 'password','/images/av2.png'),
 ('Sam', 'samSmith', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u', 'pic'),
 ('Tony', 'tonySmith', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u','pic');
 

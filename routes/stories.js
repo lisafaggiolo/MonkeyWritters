@@ -37,7 +37,7 @@ module.exports = (db) => {
   return router;
 };
 
-router.post('/stories:id/contribution', (req, res) => {
+router.post('/api/stories/mystories/', (req, res) => {
   const { content, created_at, user_id,story_id} = req.body;
   let contributor = {
     content,
