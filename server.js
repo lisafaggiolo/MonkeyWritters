@@ -18,40 +18,13 @@ app.use(cookieSession({
   keys: ["key1", "key2"]
 }));
 
+
+// const {
+//   getUserId,
+  
+// } = require('./routes/helpers/dbHelpers', )
+
 // ------------------------------------------
-
-const stories = {
-  "1": { title: "Breez", content: "Beatiful weather", userID: "userRandomID"},
-  "2": { title: "weather", content: "nice weather", userID: "userRandomID"},
-  "3": { title: "hot", content: "hot weather", userID: "user2RandomID"},
-  "3": { title: "cold", content: "cold weather", userID: "user"}
-};
-
-const users = {
-  "BobSmith": {
-    id: 1,
-    name: "Bob",
-    username: "BobSmith",
-    password: "purple",
-    avatar_url: "/images/av1.png"
-  },
-  "SamSmith": {
-    id: 2,
-    name: "Sam",
-    username: "SamSmith",
-    password: "orange",
-    avatar_url: "/images/av2.png"
-  },
-  "TonySmith": {
-    id: 3,
-    name: "Tony",
-    username: "TonySmith",
-    password: "black",
-    avatar_url: "/images/av3.png"
-  },
-};
-
-
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -120,6 +93,8 @@ app.get("/", (req, res) => {
    const templateVars = {username: req.session.username}
    res.render("register", templateVars);
  });
+
+
 
 
 app.post("/logout", (req, res) => {

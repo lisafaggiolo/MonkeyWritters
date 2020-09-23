@@ -1,7 +1,7 @@
 
 // PG database client/connection setup
 const { Pool } = require('pg');
-const dbParams = require('./lib/db.js');
+const dbParams = require('../../lib/db.js');
 const db = new Pool(dbParams);
 
 /// Users
@@ -25,6 +25,7 @@ exports.getUserId = getUserId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function(user) {
+  console.log("USER dbHELPER" ,user);
   return db.query (`
   INSERT INTO users(name, username, password, avatar_url)
   VALUES ($1, $2, $3, $4)
