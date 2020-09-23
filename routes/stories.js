@@ -62,11 +62,12 @@ module.exports = (db) => {
     
       res.redirect('/')
     })
-    
-    // const {username, user_id} = req.session;
-    // const {text} = req.body;
+    .catch(err => {
+      console.err("error =>", err.message)
+    });
+ 
 
-  })
+  });
   return router;
 };
 

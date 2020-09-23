@@ -52,6 +52,9 @@ module.exports = (db) => {
       req.session.username = user.username;
       res.redirect('/')
     })
+    .catch(err => {
+      console.err("error =>", err.message)
+    });
 
   })
   return router;
