@@ -17,6 +17,39 @@
 
 
   <main>
+
+    <div class="box">
+      <header>
+        <div class="top-left">
+            <div>
+              <img src="/images/av3.png">
+            </div>
+            <div class="top-left-column">
+                <span>creator</span>
+                <span><%= user.username %></span>
+            </div>
+        </div>
+        <div class="top-right">
+            <div class="top-right-column">
+              <!-- <span>contributor</span> -->
+              <!-- <span>contributors.user_name</span> -->
+            </div>
+            <div>
+            <img src="/images/av6.png">
+            </div>
+        </div>
+      </header>
+      <%= story.title %>
+      <div class="text-section">
+    
+      <%= story.content %>
+      </div>
+      <footer>
+      <!-- <a class="nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a> -->
+        <span>rate this prospect</span>
+      </footer>
+    </div>
+
     <section id="new-story-box">
       <form id="contributeStory-form">
         <label for="contribution-text">Contribute to this Story</label>
@@ -28,15 +61,6 @@
     </section>
 
   </main>
-
-
-
-
-
-
-
-
-
 
 
 

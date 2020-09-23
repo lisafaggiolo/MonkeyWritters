@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const { request } = require("express");
+const dbHelpers = require('./routes/helpers/dbHelpers.js');
 
 const cookieSession = require("cookie-session");
 
@@ -106,6 +107,7 @@ app.post("/logout", (req, res) => {
 
 app.get("/mystories", (req, res) => {
   let username = req.session.username
+
   db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
   .then (data => {
     console.log('this is a test for data.rows', data.rows)
@@ -127,29 +129,51 @@ app.get("/mystories", (req, res) => {
 
 
 
-app.get("/stories/prospects", (req, res) => {
-  const templateVars = {user: {username: req.session.username} }
-   res.render("prospects", templateVars);
- });
-// ---------------------to be adjusted----------------------------------
-// app.get("/stories/:story", (req, res) => {
-  // let username = req.session.username
-  // db.query(`SELECT * FROM stories WHERE id='${req.session.user_id}';`)
-  // .then (data => {
-  //   let userObj = data.rows[0]
-  //   const templateVars = {user: userObj}
-  //   console.log('test for templateVArs', templateVars)
-  //   if (userObj) {
-      // res.render("prospects", templateVars);
-    // }
-  //   else {
-  //     res.status(403).send({message: "You have to be logged in to see this content!"});
-  //   }
-  //   })
-  // .catch(err => {
-  //   res.status(403).send({message: "You have to be logged in to see this content!"});
-  // });
-// })
+// app.get("/stories/prospects", (req, res) => {
+//   const templateVars = {user: {username: req.session.username} }
+//    res.render("prospects", templateVars);
+//  });
+// ---------------------to be adjusted---------------------------------- 
+
+
+
+app.get("/stories/:id", (req, res) => {
+ let username = req.session.username;
+ const storyID = req.params.id; 
+  //console.log("SERVER USERID =>", userID);
+  console.log("SERVER REQ.BODY", req.body);
+  
+  
+  db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
+  .then (data => {
+    let user = data.rows[0];
+
+    db.query(`SELECT stories.* as story, FROM stories WHERE id='${storyID}';`)
+    .then (data => {
+      let story = data.rows[0]
+      
+      console.log('SERVER STORY =>', story);
+        
+      const templateVars = {
+        story, 
+        user
+      }
+      
+      //console.log('test for templateVArs', templateVars)
+      if (user) {
+        res.render("prospects", templateVars);
+      }
+      else {
+        res.status(403).send({message: "You have to be logged in to see this content!"});
+      }
+      })
+    .catch(err => {
+      res.status(403).send({message: "You have to be logged in to see this content!"});
+    });
+  })
+ 
+});
+
 
 // -----------------------------------------------------------
 

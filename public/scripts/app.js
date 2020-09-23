@@ -9,14 +9,16 @@ $(() => {
 //   });;
 
 // -----------------Fetch the curent story to add a contribution----------
-const loadCurrentStory = function() {
-  $.ajax("/api/stories/id:", { method: "GET",
-  success: function(response) {
-    let currentStory;
-}
-  })
-  }
-  loadCurrentStory()
+// const loadCurrentStory = function() {
+//   $.ajax("/stories/:id", { method: "GET",
+//     success: function(response) {
+//       console.log(`response: ${JSON.stringify(response)}`)
+//       let currentStory = makeStoryElement(response) 
+//       $("#render-story").prepend(currentStory)
+//     }
+//  })
+//  }
+// loadCurrentStory()
 
 
 
@@ -34,7 +36,7 @@ const loadMyStories = function() {
       const storyElement = makeStoryElement(story)
       storyElements.push(storyElement);
     }
-    $("#render-ownerStories").append(storyElements)
+    $("#render-ownerStories").prepend(storyElements)
   }
 });
 }
@@ -53,7 +55,7 @@ loadMyStories()
           const storyElement = makeStoryElement(story)
           storyElements.push(storyElement);
         }
-        $("#render-stories").append(storyElements)
+        $("#render-stories").prepend(storyElements)
       }
     });
   };
@@ -92,7 +94,7 @@ function makeStoryElement(story) {
   ${story.content}
   </div>
   <footer>
-  <a class="nav-item nav-link" href="/stories/prospects">Add contribution to story</a>
+  <a class="nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a>
     <span>rate this prospect</span>
   </footer>
 </div>
