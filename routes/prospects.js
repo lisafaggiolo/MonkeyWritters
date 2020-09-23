@@ -1,7 +1,7 @@
 /*
- * All routes for stories are defined here
+ * All routes for prospects are defined here
  * Since this file is loaded in server.js into api/stories,
- *   these routes are mounted onto /stories
+ * these routes are mounted onto /stories
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
@@ -21,10 +21,10 @@ app.use(cookieSession({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM stories;`)
+    db.query(`SELECT * FROM prospects;`)
       .then(data => {
-        const stories = data.rows;
-        res.json({ stories });
+        const prospects = data.rows;
+        res.json({ prospects });
       })
       .catch(err => {
         res
@@ -33,31 +33,16 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/mystories", (req, res) => {
-    db.query(`SELECT * FROM stories WHERE user_id='${req.session.user_id}';`)
-      .then(data => {
-        const stories = data.rows;
-        res.json({ stories });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
-  router.post("/mystories", (req, res) => {
+  router.post("stories/:id/prospects", (req, res) => {
     const user_id = req.session.user_id;
-    const { title, text } = req.body;
+    const { text } = req.body;
 
-    let story = {
-      title,
+    let prospects = {
       content : text,
-      closed: false,
-      user_id
+      user_id,
+      story_id : req.params.id
     }
-
-    dbHelpers.addStory(story)
+    dbHelpers.addProspects(prospects)
     .then(() => {
 
       res.redirect('/')

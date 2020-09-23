@@ -45,12 +45,14 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const storiesRoutes = require("./routes/stories");
-
+const prospectsRoutes = require("./routes/prospects")
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/stories", storiesRoutes(db));
+app.use("/api/prospects", prospectsRoutes(db));
+
 // Note: mount other resources here, using the same pattern above
 
 
@@ -123,37 +125,6 @@ app.get("/mystories", (req, res) => {
     res.status(403).send({message: "You have to be logged in to see this content!"});
   });
 })
-
-
-
-
-app.get("/stories/prospects", (req, res) => {
-  const templateVars = {user: {username: req.session.username} }
-   res.render("prospects", templateVars);
- });
-// ---------------------to be adjusted----------------------------------
-// app.get("/stories/:story", (req, res) => {
-  // let username = req.session.username
-  // db.query(`SELECT * FROM stories WHERE id='${req.session.user_id}';`)
-  // .then (data => {
-  //   let userObj = data.rows[0]
-  //   const templateVars = {user: userObj}
-  //   console.log('test for templateVArs', templateVars)
-  //   if (userObj) {
-      // res.render("prospects", templateVars);
-    // }
-  //   else {
-  //     res.status(403).send({message: "You have to be logged in to see this content!"});
-  //   }
-  //   })
-  // .catch(err => {
-  //   res.status(403).send({message: "You have to be logged in to see this content!"});
-  // });
-// })
-
-// -----------------------------------------------------------
-
-
 
 
 app.listen(PORT, () => {

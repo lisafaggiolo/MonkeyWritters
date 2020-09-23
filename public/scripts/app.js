@@ -92,7 +92,7 @@ function makeStoryElement(story) {
   ${story.content}
   </div>
   <footer>
-  <a class="nav-item nav-link" href="/stories/prospects">Add contribution to story</a>
+  <a class="nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a>
     <span>rate this prospect</span>
   </footer>
 </div>
