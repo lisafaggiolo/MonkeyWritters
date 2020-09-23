@@ -37,4 +37,23 @@ module.exports = (db) => {
   return router;
 };
 
+router.post('/stories:id/contribution', (req, res) => {
+  const { content, created_at, user_id,story_id} = req.body;
+  let contributor = {
+    content,
+    created_at,
+    user_id,
+    story_id
+  }
+
+  dbHelpers.addProspects(contributor)
+  .then(() => {
+    req.session.content = contributor.content;
+    res.redirect('/')
+  })
+
+})
+return router;
+
+
 

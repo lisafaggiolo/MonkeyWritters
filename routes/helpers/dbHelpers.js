@@ -112,4 +112,28 @@ const addProspects = function(prospect) {
 }
 exports.addProspects = addProspects;
 
+/**
+ * Gets stroies based on userID.
+ * @param {number} id The id of the user.
+ * @return {Promise<{}>} A promise to a user's stories.
+ */
+
+const getStoriesById = (id) => {
+  return db.query (`
+  SELECT title, content
+  FROM stories WHERE user_id = $1`, [id])
+  .then(res => res.rows[0])
+}
+exports.getStoriesById = getStoriesById;
+
+
+const updateStory = (options, title) => {
+return db.query(`INSERT INTO stories(title, content, user_id)
+SELECT $2 ,prospects.content, prospects.user_id FROM  prospects
+WHERE prospects.content LIKE '%$1%'`
+, [options, title])
+  .then(res => res.rows[0])
+}
+
+
 

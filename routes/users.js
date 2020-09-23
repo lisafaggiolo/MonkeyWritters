@@ -9,6 +9,14 @@ const express = require('express');
 const router  = express.Router();
 const dbHelpers = require('./helpers/dbHelpers.js');
 
+const cookieSession = require("cookie-session");
+const app = express();
+
+app.use(cookieSession({
+  name: "session",
+  keys: ["key1", "key2"]
+}));
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
     let query = `SELECT * FROM users`;
@@ -35,7 +43,8 @@ module.exports = (db) => {
 
     dbHelpers.addUser(user)
     .then(() => {
-
+      req.session.username = user.username
+      console.log("name", req.session.username)
       res.redirect('/')
     })
 
