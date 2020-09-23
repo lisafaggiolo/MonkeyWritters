@@ -129,7 +129,6 @@ app.get("/mystories", (req, res) => {
 })
 
 
-<<<<<<< HEAD
 
 
 // app.get("/stories/prospects", (req, res) => {
@@ -183,8 +182,6 @@ app.get("/stories/:id", (req, res) => {
 
 
 
-=======
->>>>>>> 21d73a9cea31da85883b3a27bf92e69b5af5a094
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
