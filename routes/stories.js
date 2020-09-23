@@ -7,6 +7,17 @@
 
 const express = require('express');
 const router  = express.Router();
+const dbHelpers = require('./helpers/dbHelpers.js');
+const cookieSession = require("cookie-session");
+const { text } = require('body-parser');
+const app        = express();
+
+app.use(cookieSession({
+  name: "session",
+  keys: ["key1", "key2"]
+}));
+
+
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -34,7 +45,30 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.post("/mystories", (req, res) => {
+    const user_id = req.session.user_id;
+    const { title, text } = req.body;
+    
+    let story = {
+      title,
+      content : text,
+      closed: false,
+      user_id
+    }
+    
+    dbHelpers.addStory(story)
+    .then(() => {
+    
+      res.redirect('/')
+    })
+    
+    // const {username, user_id} = req.session;
+    // const {text} = req.body;
+
+  })
   return router;
 };
 
+  
 

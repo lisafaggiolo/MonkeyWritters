@@ -89,9 +89,9 @@ exports.getCreatorOfAStory = getCreatorOfAStory;
  */
 const addStory = function(story) {
   return db.query (`
-  INSERT INTO stories(title, content, created_at, closed, user_id )
-  VALUES ($1, $2, $3, $4, $5)
-  RETURNING *`, [story.title, story.content, story.created_at, story.closed, story.user_id])
+  INSERT INTO stories(title, content, closed, user_id )
+  VALUES ($1, $2, $3, $4)
+  RETURNING *`, [story.title, story.content, story.closed, story.user_id])
   .then(res => res.rows[0])
 }
 exports.addStory = addStory;

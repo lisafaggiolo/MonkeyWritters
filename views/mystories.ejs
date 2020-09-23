@@ -19,9 +19,15 @@
 
   <main>
     <!-- username: <%= user.username %>, name: <%= user.name %>, avatar_url: <%= user.avatar_url %> -->
+
     <section id="new-story-box">
-      <form id="story-form">
+      <form id="story-form" method="POST" action="/api/stories/mystories">
         <label for="story-text">Start a new Story</label>
+        <div class="">
+          <label for="story-form-title">Title</label>
+          <br>
+          <input type="" name="title" placeholder="title" class="form-control form-control-md">
+        </div>
         <textarea name="text" id="story-text"></textarea>
         <div>
           <button type="submit" class="btn btn-success">Share Story</button>

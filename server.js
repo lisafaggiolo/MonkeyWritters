@@ -9,52 +9,14 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
-
+const { request } = require("express");
 
 const cookieSession = require("cookie-session");
-const { request } = require("express");
+
 app.use(cookieSession({
   name: "session",
   keys: ["key1", "key2"]
 }));
-
-// ------------------------------------------
-
-// const stories = {
-//   "1": { title: "Orange", content: "Beatiful weather", userID: "userRandomID"},
-//   "2": { title: "weather", content: "nice weather", userID: "userRandomID"},
-//   "3": { title: "hot", content: "hot weather", userID: "user2RandomID"},
-//   "3": { title: "cold", content: "cold weather", userID: "user"}
-// };
-
-// const users = {
-//   "BobSmith": {
-//     id: 1,
-//     name: "Bob",
-//     username: "BobSmith",
-//     password: "purple",
-//     avatar_url: "/images/av1.png"
-//   },
-//   "SamSmith": {
-//     id: 2,
-//     name: "Sam",
-//     username: "SamSmith",
-//     password: "orange",
-//     avatar_url: "/images/av2.png"
-//   },
-//   TonySmith: {
-//     id: 3,
-//     name: "Tony",
-//     username: "TonySmith",
-//     password: "black",
-//     avatar_url: "/images/av3.png"
-//   },
-// };
-
-// const {
-//   getUserId,
-
-// } = require('./routes/helpers/dbHelpers', )
 
 // ------------------------------------------
 
@@ -111,14 +73,13 @@ app.get("/", (req, res) => {
  });
 
 
-
+ //needs passwords hashed
  app.post("/login", (req, res) => {
    const { username, password } = req.body
    console.log(username, password)
      db.query(`SELECT * FROM users WHERE username='${username}';`)
       .then (data => {
         const dbPassword = data.rows[0].password
-        console.log(data.rows)
         if (dbPassword === password) {
           req.session.username = username;
           req.session.user_id = data.rows[0].id
@@ -135,8 +96,6 @@ app.get("/", (req, res) => {
   const templateVars = {user: {username: req.session.username} }
    res.render("register", templateVars);
  });
-
-
 
 
 app.post("/logout", (req, res) => {
