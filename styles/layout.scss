@@ -86,7 +86,7 @@ body {
 
 #story-text {
   border-bottom: solid black 5px;
-  background: #f4f1ec;
+  background:  #dcdcdc;
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
@@ -123,6 +123,14 @@ body {
   margin-bottom: 20px;
 }
 
-#story-text {
-  background-color: #dcdcdc;
+
+#contribution-text {
+  border-bottom: solid black 5px;
+  background: #dcdcdc;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  width: 90%;
+  margin-left: 5%;
 }

@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-
   <title>Monkey Writers</title>
 </head>
 <body>
@@ -18,27 +17,31 @@
 
 
   <main>
-    <!-- username: <%= user.username %>, name: <%= user.name %>, avatar_url: <%= user.avatar_url %> -->
-
     <section id="new-story-box">
-      <form id="story-form" method="POST" action="/api/stories/mystories">
-        <label for="story-text">Start a new Story</label>
-        <div class="">
-          <label for="story-form-title">Title</label>
-          <br>
-          <input type="" name="title" placeholder="title" class="form-control form-control-md">
-        </div>
-        <textarea name="text" id="story-text"></textarea>
+      <form id="contributeStory-form">
+        <label for="contribution-text">Contribute to this Story</label>
+        <textarea name="contributeText" id="contribution-text"></textarea>
         <div>
-          <button type="submit" class="btn btn-success">Share Story</button>
+          <button type="submit" class="btn btn-success">Submit story contribution</button>
         </div>
       </form>
     </section>
 
-    <section id="render-ownerStories"></section>
-
-
   </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <script src="/vendor/jquery-3.0.0.js"></script>

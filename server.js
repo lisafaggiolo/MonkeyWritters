@@ -18,7 +18,6 @@ app.use(cookieSession({
   keys: ["key1", "key2"]
 }));
 
-// ------------------------------------------
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -125,6 +124,34 @@ app.get("/mystories", (req, res) => {
   });
 })
 
+
+
+
+app.get("/stories/prospects", (req, res) => {
+  const templateVars = {user: {username: req.session.username} }
+   res.render("prospects", templateVars);
+ });
+// ---------------------to be adjusted----------------------------------
+// app.get("/stories/:story", (req, res) => {
+  // let username = req.session.username
+  // db.query(`SELECT * FROM stories WHERE id='${req.session.user_id}';`)
+  // .then (data => {
+  //   let userObj = data.rows[0]
+  //   const templateVars = {user: userObj}
+  //   console.log('test for templateVArs', templateVars)
+  //   if (userObj) {
+      // res.render("prospects", templateVars);
+    // }
+  //   else {
+  //     res.status(403).send({message: "You have to be logged in to see this content!"});
+  //   }
+  //   })
+  // .catch(err => {
+  //   res.status(403).send({message: "You have to be logged in to see this content!"});
+  // });
+// })
+
+// -----------------------------------------------------------
 
 
 

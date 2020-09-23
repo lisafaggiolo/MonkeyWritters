@@ -19,8 +19,6 @@ app.use(cookieSession({
 
 
 
-
-
 module.exports = (db) => {
   router.get("/", (req, res) => {
     let query = `SELECT * FROM users`;

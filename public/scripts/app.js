@@ -8,7 +8,23 @@ $(() => {
 //     }
 //   });;
 
+// -----------------Fetch the curent story to add a contribution----------
+const loadCurrentStory = function() {
+  $.ajax("/api/stories/id:", { method: "GET",
+  success: function(response) {
+    let currentStory;
+}
+  })
+  }
+  loadCurrentStory()
 
+
+
+
+
+
+
+// ------------Fetch the user stories-----------------
 const loadMyStories = function() {
   $.ajax("/api/stories/mystories", { method: "GET",
   success: function(response) {
@@ -27,7 +43,7 @@ loadMyStories()
 
 
 
-// Fetch Existing Stories
+// -------------------Fetch all Stories-------------------
   const loadstories = function() {
     $.ajax("/api/stories", { method: "GET",
       success: function(response) {
@@ -45,6 +61,8 @@ loadMyStories()
 });
 
 
+
+
 function makeStoryElement(story) {
   return `
   <div class="box">
@@ -55,7 +73,7 @@ function makeStoryElement(story) {
         </div>
         <div class="top-left-column">
             <span>creator</span>
-            <span>users.username</span>
+            <span>${story.user_id}users.username</span>
         </div>
     </div>
     <div class="top-right">
@@ -74,7 +92,7 @@ function makeStoryElement(story) {
   ${story.content}
   </div>
   <footer>
-    <span>Add contribution to story</span>
+  <a class="nav-item nav-link" href="/stories/prospects">Add contribution to story</a>
     <span>rate this prospect</span>
   </footer>
 </div>
