@@ -2,8 +2,8 @@
 INSERT INTO users (name, username, password, avatar_url)
 VALUES ('Alice','alice sue', 'password1' ,'/images/av1.png'),
 ('Bob', 'BobSmith', 'password','/images/av2.png'),
-('Sam', 'samSmith', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u', 'pic'),
-('Tony', 'tonySmith', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u','pic');
+('Sam', 'samSmith', 'password2', '/images/av3.png'),
+('Tony', 'tonySmith', 'password3','/images/av4.png');
 
 INSERT INTO stories (title, content, closed, user_id)
 VALUES ('Breez', 'beautiful weather', true, 1),

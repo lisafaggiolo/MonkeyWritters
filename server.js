@@ -57,17 +57,43 @@ app.use("/api/stories", storiesRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+app.use((req, res, next) => {
+  db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
+  .then (data => {
+    console.log('this is a test for data.rows', data.rows)
+    let userObj = data.rows[0]
+    const templateVars = {user: userObj}
+    console.log('test for templateVArs', templateVars)
+    if (userObj) {
+     req.user = userObj;
+    }
+    next()
+  })
+  .catch(err => {
+    next()
+  });
+})
+
+
+function requireAuth(req, res, next) {
+  if (req.user) {
+    next()
+  } else {
+    res.status(403).send({message: "You have to be logged in to see this content!"});
+  }
+}
+
 
 
 app.get("/", (req, res) => {
-  const templateVars = {user: {username: req.session.username} }
+  const templateVars = {user: req.user }
  res.render("index", templateVars);
 });
 
 
 
  app.get("/login", (req, res) => {
-  const templateVars = {user: {username: req.session.username} }
+  const templateVars = {user: req.user }
    res.render("login", templateVars);
  });
 
@@ -80,7 +106,6 @@ app.get("/", (req, res) => {
       .then (data => {
         const dbPassword = data.rows[0].password
         if (dbPassword === password) {
-          req.session.username = username;
           req.session.user_id = data.rows[0].id
           res.redirect("/");
         } else {
@@ -92,66 +117,31 @@ app.get("/", (req, res) => {
 
 
  app.get("/register", (req, res) => {
-  const templateVars = {user: {username: req.session.username} }
+  const templateVars = { user: req.user }
    res.render("register", templateVars);
  });
 
 
 app.post("/logout", (req, res) => {
- req.session.username = null;
+ req.session.user_id = null;
  res.redirect("/");
 });
 
 
 
-app.get("/mystories", (req, res) => {
-  let username = req.session.username
-  db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
-  .then (data => {
-    console.log('this is a test for data.rows', data.rows)
-    let userObj = data.rows[0]
-    const templateVars = {user: userObj}
-    console.log('test for templateVArs', templateVars)
-    if (userObj) {
-      res.render("mystories", templateVars);
-    }
-    else {
-      res.status(403).send({message: "You have to be logged in to see this content!"});
-    }
-    })
-  .catch(err => {
-    res.status(403).send({message: "You have to be logged in to see this content!"});
-  });
+app.get("/mystories", requireAuth, (req, res) => {
+  const templateVars = {user: req.user }
+  res.render("mystories", templateVars);
 })
 
 
 
 
 app.get("/stories/prospects", (req, res) => {
-  const templateVars = {user: {username: req.session.username} }
+  const templateVars = { user: req.user }
    res.render("prospects", templateVars);
  });
-// ---------------------to be adjusted----------------------------------
-// app.get("/stories/:story", (req, res) => {
-  // let username = req.session.username
-  // db.query(`SELECT * FROM stories WHERE id='${req.session.user_id}';`)
-  // .then (data => {
-  //   let userObj = data.rows[0]
-  //   const templateVars = {user: userObj}
-  //   console.log('test for templateVArs', templateVars)
-  //   if (userObj) {
-      // res.render("prospects", templateVars);
-    // }
-  //   else {
-  //     res.status(403).send({message: "You have to be logged in to see this content!"});
-  //   }
-  //   })
-  // .catch(err => {
-  //   res.status(403).send({message: "You have to be logged in to see this content!"});
-  // });
-// })
 
-// -----------------------------------------------------------
 
 
 

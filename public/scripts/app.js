@@ -69,11 +69,11 @@ function makeStoryElement(story) {
   <header>
     <div class="top-left">
         <div>
-          <img src="/images/av3.png">
+          <img src="${story.avatar_url}">
         </div>
         <div class="top-left-column">
             <span>creator</span>
-            <span>${story.user_id}users.username</span>
+            <span>${story.owner}</span>
         </div>
     </div>
     <div class="top-right">
