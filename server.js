@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const { request } = require("express");
+const dbHelpers = require('./routes/helpers/dbHelpers.js');
 
 const cookieSession = require("cookie-session");
 
@@ -45,12 +46,14 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const storiesRoutes = require("./routes/stories");
-
+const prospectsRoutes = require("./routes/prospects")
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/stories", storiesRoutes(db));
+app.use("/api/prospects", prospectsRoutes(db));
+
 // Note: mount other resources here, using the same pattern above
 
 
@@ -129,19 +132,91 @@ app.post("/logout", (req, res) => {
 
 
 
+<<<<<<< HEAD
 app.get("/mystories", requireAuth, (req, res) => {
   const templateVars = {user: req.user }
   res.render("mystories", templateVars);
+=======
+app.get("/mystories", (req, res) => {
+  let username = req.session.username
+
+  db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
+  .then (data => {
+    console.log('this is a test for data.rows', data.rows)
+    let userObj = data.rows[0]
+    const templateVars = {user: userObj}
+    console.log('test for templateVArs', templateVars)
+    if (userObj) {
+      res.render("mystories", templateVars);
+    }
+    else {
+      res.status(403).send({message: "You have to be logged in to see this content!"});
+    }
+    })
+  .catch(err => {
+    res.status(403).send({message: "You have to be logged in to see this content!"});
+  });
+>>>>>>> 33b98691dc0b355bb276f01a600779e1e6f7a567
 })
 
 
 
 
+<<<<<<< HEAD
 app.get("/stories/prospects", (req, res) => {
   const templateVars = { user: req.user }
    res.render("prospects", templateVars);
  });
 
+=======
+// app.get("/stories/prospects", (req, res) => {
+//   const templateVars = {user: {username: req.session.username} }
+//    res.render("prospects", templateVars);
+//  });
+// ---------------------to be adjusted---------------------------------- 
+
+
+
+app.get("/stories/:id", (req, res) => {
+ let username = req.session.username;
+ const storyID = req.params.id; 
+  //console.log("SERVER USERID =>", userID);
+  console.log("SERVER REQ.BODY", req.body);
+  
+  
+  db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
+  .then (data => {
+    let user = data.rows[0];
+
+    db.query(`SELECT stories.* as story, FROM stories WHERE id='${storyID}';`)
+    .then (data => {
+      let story = data.rows[0]
+      
+      console.log('SERVER STORY =>', story);
+        
+      const templateVars = {
+        story, 
+        user
+      }
+      
+      //console.log('test for templateVArs', templateVars)
+      if (user) {
+        res.render("prospects", templateVars);
+      }
+      else {
+        res.status(403).send({message: "You have to be logged in to see this content!"});
+      }
+      })
+    .catch(err => {
+      res.status(403).send({message: "You have to be logged in to see this content!"});
+    });
+  })
+ 
+});
+
+
+// -----------------------------------------------------------
+>>>>>>> 33b98691dc0b355bb276f01a600779e1e6f7a567
 
 
 
