@@ -150,12 +150,16 @@ app.get("/stories/:storyID", (req, res) => {
    .then (data => {
      let user = data.rows[0];
 
-     db.query(`SELECT * FROM stories WHERE id='${storyID}';`)
+     db.query(`SELECT stories.*,  users.username as creator, users.avatar_url as avatar 
+     FROM stories 
+     JOIN users on users.id = stories.user_id
+     WHERE stories.id='${storyID}';`)
      .then (data => {
+       console.log("SERVER DATA =>", data);
        let story = data.rows[0]
 
-       console.log('SERVER STORY =>', story);
-
+       //console.log('SERVER STORY =>', story);
+       //console.log("SERVER USER =>", user);
        const templateVars = {
          story,
          user,
@@ -163,7 +167,7 @@ app.get("/stories/:storyID", (req, res) => {
        }
 
       if (user) {
-        console.log('test for templateVArs::::::::', templateVars)
+        //console.log('test for templateVArs::::::::', templateVars)
 
          res.render("prospects", templateVars);
        }
