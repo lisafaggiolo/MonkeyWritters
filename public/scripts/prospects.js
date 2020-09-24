@@ -21,7 +21,7 @@ const submitForm = function(event) {
     .then(() => {
       loadContributions();
          
-      $("contribution-text").val("");
+      $("#contribution-text").val("");
     });  
 }
 
