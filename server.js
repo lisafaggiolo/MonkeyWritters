@@ -138,11 +138,40 @@ app.get("/mystories", requireAuth, (req, res) => {
 })
 
 
+app.get("/stories/:id", (req, res) => {
+  let username = req.session.username;
+  const storyID = req.params.id;
+   console.log("SERVER REQ.BODY", req.body);
 
 
-app.get("/stories/prospects", (req, res) => {
-  const templateVars = { user: req.user }
-   res.render("prospects", templateVars);
+   db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
+   .then (data => {
+     let user = data.rows[0];
+
+     db.query(`SELECT * FROM stories WHERE id='${storyID}';`)
+     .then (data => {
+       let story = data.rows[0]
+
+       console.log('SERVER STORY =>', story);
+
+       const templateVars = {
+         story,
+         user
+       }
+
+       //console.log('test for templateVArs', templateVars)
+       if (user) {
+         res.render("prospects", templateVars);
+       }
+       else {
+         res.status(403).send({message: "You have to be logged in to see this content!"});
+       }
+       })
+     .catch(err => {
+       res.status(403).send({message: "You have to be logged in to see this content!"});
+     });
+   })
+
  });
 
 
