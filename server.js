@@ -133,9 +133,9 @@ app.post("/logout", (req, res) => {
 
 
 app.get("/mystories", requireAuth, (req, res) => {
-  // console.log("REQ.PARAMS ", req.params);
-  // console.log("REQ.BODY ", req.body);
-  // console.log("REQ.SESSION ", req.session);
+  console.log("REQ.PARAMS ", req.params);
+  console.log("REQ.BODY ", req.body);
+  console.log("REQ.SESSION ", req.session);
   const templateVars = {user: req.user }
   res.render("mystories", templateVars);
 })

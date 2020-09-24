@@ -33,6 +33,46 @@ module.exports = (db) => {
       });
   });
 
+  router.get("/mystories", (req, res) => { 
+    console.log("REQ.PARAMS ", req.params);
+    console.log("REQ.BODY ", req.body);
+    console.log("REQ.SESSION ", req.session);
+    
+    db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id) where user_id ='${req.session.user_id}';`)
+      .then(data => {
+        const stories = data.rows;
+        res.json({ stories });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  router.post("/mystories", (req, res) => {
+    const user_id = req.session.user_id;
+    const { title, text } = req.body;
+
+    let story = {
+      title,
+      content : text,
+      closed: false,
+      user_id
+    }
+
+    dbHelpers.addStory(story)
+    .then(() => {
+
+      res.redirect('/mystories')
+    })
+    .catch(err => {
+      console.err("error =>", err.message)
+    });
+
+
+  });
+
 
   router.get("/:storyID", (req, res) => {
    // console.log('req.params.storyID', req.params.storyID)
@@ -78,45 +118,9 @@ module.exports = (db) => {
 
 
   });
-  router.get("/mystories", (req, res) => { 
-    console.log("REQ.PARAMS ", req.params);
-    console.log("REQ.BODY ", req.body);
-    console.log("REQ.SESSION ", req.session);
-    
-    db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id) where user_id ='${req.session.user_id}';`)
-      .then(data => {
-        const stories = data.rows;
-        res.json({ stories });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
-  router.post("/mystories", (req, res) => {
-    const user_id = req.session.user_id;
-    const { title, text } = req.body;
-
-    let story = {
-      title,
-      content : text,
-      closed: false,
-      user_id
-    }
-
-    dbHelpers.addStory(story)
-    .then(() => {
-
-      res.redirect('/mystories')
-    })
-    .catch(err => {
-      console.err("error =>", err.message)
-    });
 
 
-  });
+
 
 
 
