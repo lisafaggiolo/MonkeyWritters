@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  <script src="/scripts/myStories.js"></script>
+
 
   <title>Monkey Writers</title>
 </head>
@@ -18,16 +18,34 @@
 
 
   <main>
-    <!-- username: <%= user.username %>, name: <%= user.name %>, avatar_url: <%= user.avatar_url %> -->
     <section id="new-story-box">
       <form id="story-form" method="POST" action="/api/stories/mystories">
         <label for="story-text">Start a new Story</label>
         <div class="">
           <label for="story-form-title">Title</label>
-          <br>
-          <input type="" name="title" placeholder="title" class="form-control form-control-md">
+        </div>
+          <div class="">
+          <input type="" name="title" placeholder="title" >
         </div>
         <textarea name="text" id="story-text"></textarea>
+        <div>
+          <button type="submit" class="btn btn-success">Share Story</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="new-story-box2">
+      <form id="story-form" method="POST" action="/api/stories/mystories">
+        <label for="story-text">Start a new Story</label>
+        <div>
+          <div class="subtitle">Title</div>
+        </div>
+          <div>
+          <input type="" name="title" placeholder="" class="storyTitleArea" >
+        </div>
+        <br>
+        <div class="subtitle">Story</div>
+        <textarea name="text" id="story-text2"></textarea>
         <div>
           <button type="submit" class="btn btn-success">Share Story</button>
         </div>
@@ -39,6 +57,6 @@
 
   </main>
 
- 
+
   <script src="/vendor/jquery-3.0.0.js"></script>
-  
+  <script src="/scripts/myStories.js"></script>

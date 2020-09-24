@@ -52,6 +52,7 @@ const prospectsRoutes = require("./routes/prospects")
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/stories", storiesRoutes(db));
+
 //app.use("/api/prospects", prospectsRoutes(db));
 
 // Note: mount other resources here, using the same pattern above

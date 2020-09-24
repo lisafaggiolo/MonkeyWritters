@@ -29,7 +29,7 @@
             </div>
             <div class="top-left-column">
                 <span>creator</span>
-                <span><%= user.username %></span>
+                <span class="story-owner"><%= user.username %></span>
             </div>
         </div>
         <div class="top-right">
@@ -38,24 +38,26 @@
               <!-- <span>contributors.user_name</span> -->
             </div>
             <div>
-            <img src="/images/av6.png">
+            <!-- <img src="/images/av6.png"> -->
             </div>
         </div>
       </header>
+      <div class="storyTitle">
       <%= story.title %>
-      <div class="text-section">
+      </div>
 
+      <div class="text-section">
       <%= story.content %>
       </div>
       <footer>
       <!-- <a class="nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a> -->
-        <span>rate this prospect</span>
+        <!-- <span>rate this prospect</span> -->
       </footer>
     </div>
 
     <section id="new-story-box">
       <form id="contributeStory-form" method="POST" action="/api/stories/<%= storyID %>/prospects">
-        
+
         <label for="contribution-text">Contribute to this Story</label>
         <textarea name="contributeText" id="contribution-text"></textarea>
         <div>

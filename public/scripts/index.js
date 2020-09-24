@@ -32,7 +32,7 @@ const loadstories = function() {
           </div>
           <div class="top-left-column">
               <span>creator</span>
-              <span>${story.owner}</span>
+              <span class="story-owner">${story.owner}</span>
           </div>
       </div>
       <div class="top-right">
@@ -45,14 +45,15 @@ const loadstories = function() {
           </div>
       </div>
     </header>
-    ${story.title}
+    <div class="storyTitle">
+    <span>${story.title}</span>
+    </div>
     <div class="text-section">
-  
+
     ${story.content}
     </div>
     <footer>
     <a class="nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a>
-      <span>rate this prospect</span>
     </footer>
   </div>
     `
