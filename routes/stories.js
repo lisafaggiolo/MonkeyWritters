@@ -21,6 +21,7 @@ app.use(cookieSession({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
+    console.log("ROUTER /")
     db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id);`)
       .then(data => {
         const stories = data.rows;
@@ -34,23 +35,9 @@ module.exports = (db) => {
   });
 
 
-  router.get("/:storyID", (req, res) => {
-   // console.log('req.params.storyID', req.params.storyID)
-    db.query(`SELECT * FROM prospects WHERE prospects.story_id = ${req.params.storyID};`)
-      .then(data => {
-        const prospects = data.rows;
-        res.json({ prospects });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
 
   router.post("/:storyID/prospects", (req, res) => {
- 
+    console.log("STORYID/prospects")
     const user_id = req.session.user_id;
     const { contributeText } = req.body;
 
@@ -75,27 +62,27 @@ module.exports = (db) => {
         .status(500)
         .json({ error: err.message });
     });
-
-
   });
-  router.get("/mystories", (req, res) => { 
-    console.log("REQ.PARAMS ", req.params);
-    console.log("REQ.BODY ", req.body);
-    console.log("REQ.SESSION ", req.session);
+   router.get("/mystories", (req, res) => { 
+     console.log("REQ.PARAMS ", req.params);
+     console.log("REQ.BODY ", req.body);
+     console.log("REQ.SESSION ", req.session);
     
-    db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id) where user_id ='${req.session.user_id}';`)
-      .then(data => {
-        const stories = data.rows;
-        res.json({ stories });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+      db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id) where user_id ='${req.session.user_id}';`)
+        .then(data => {
+          const stories = data.rows;
+          res.json({ stories });
+        })
+     .catch(err => {
+          res
+            .status(500)
+            .json({ error: err.message });
+      
+        });
+   });
 
   router.post("/mystories", (req, res) => {
+    console.log("mystories - POST")
     const user_id = req.session.user_id;
     const { title, text } = req.body;
 
@@ -119,6 +106,21 @@ module.exports = (db) => {
   });
 
 
+
+  router.get("/:storyID", (req, res) => {
+    console.log("STORYID")
+    console.log('req.params.storyID', req.params.storyID)
+    db.query(`SELECT * FROM prospects WHERE prospects.story_id = ${req.params.storyID};`)
+      .then(data => {
+        const prospects = data.rows;
+        res.json({ prospects });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
 
 
   return router;

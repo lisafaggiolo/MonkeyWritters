@@ -8,8 +8,11 @@ $(() => {
 
 const loadMyStories = function() {
   console.log("stories are loading????????????????????")
-
-    $.ajax("/api/stories/mystories")
+  
+    $.ajax({
+      url:"/api/stories/mystories",
+      method:"GET"
+    })
       .then((response) => {
         //console.log(`response: ${JSON.stringify(response)}`)
 
