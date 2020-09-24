@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+<!-- <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top">
     <img src="/images/monkeySmall.png" alt="">
@@ -11,7 +11,6 @@
       <div class="navbar-nav">
         <% if (user) { %>
         <a class="nav-item nav-link" href="/mystories">My Stories</a>
-        <!-- <a class="nav-item nav-link" href="/stories/new">Create Story</a> -->
       <div class="form-inline" style="margin-left: 800px;">
 
 
@@ -27,9 +26,60 @@
         <a class="nav-item nav-link" href="/register">Register</a>
           </div>
         <% } %>
-      </div>
-      </div>
     </div>
   </nav>
-</header>
+</header> -->
 
+
+
+<link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top">
+
+    <div class="navbar2">
+      <div class="navbar2a">
+
+          <img src="/images/monkeySmall.png" alt="">
+
+
+          <a class="navbar-brand" href="/">Monkey Writers</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+
+
+
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+        <% if (user) { %>
+        <a class="nav-item nav-link" href="/mystories">My Stories</a>
+        </div>
+        </div>
+
+      </div>
+    </div>
+
+
+      <!-- <div class="form-inline" style="margin-left: 800px;"> -->
+    <div class="navbar3">
+
+          <form method="POST" action="/logout" class="form-inline">
+            <img src="<%= user.avatar_url %>" alt="">
+            <span style="color: white;"> <%= user.username %></span>
+          <button type="submit" class="btn btn-success logoutbtn"><img src="/images/logout.png" title="Logout" alt=""></button>
+        </form>
+
+        <% } else { %>
+          <div class="form-inline" style="margin-left: 800px;">
+        <a class="nav-item nav-link" href="/login">Login</a>
+        <a class="nav-item nav-link" href="/register">Register</a>
+          </div>
+        <% } %>
+
+
+    </div>
+
+
+  </nav>
+</header>
