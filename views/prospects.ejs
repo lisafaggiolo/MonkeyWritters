@@ -51,7 +51,8 @@
     </div>
 
     <section id="new-story-box">
-      <form id="contributeStory-form">
+      <form id="contributeStory-form" method="POST" action="/api/stories/<%= storyID %>/prospects">
+        
         <label for="contribution-text">Contribute to this Story</label>
         <textarea name="contributeText" id="contribution-text"></textarea>
         <div>
@@ -60,16 +61,15 @@
       </form>
     </section>
 
+    <section id="render-prospects"></section>
+    <input id="storyID" type="hidden" value="<%= storyID %>"/>
   </main>
 
-<<<<<<< HEAD
 
 
 
 
 
 
-=======
->>>>>>> 21d73a9cea31da85883b3a27bf92e69b5af5a094
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script src="/scripts/app.js"></script>
+  <script src="/scripts/prospects.js"></script>

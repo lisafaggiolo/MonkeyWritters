@@ -52,7 +52,7 @@ const prospectsRoutes = require("./routes/prospects")
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/stories", storiesRoutes(db));
-app.use("/api/prospects", prospectsRoutes(db));
+//app.use("/api/prospects", prospectsRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
@@ -63,10 +63,10 @@ app.use("/api/prospects", prospectsRoutes(db));
 app.use((req, res, next) => {
   db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
   .then (data => {
-    console.log('this is a test for data.rows', data.rows)
+    //console.log('this is a test for data.rows', data.rows)
     let userObj = data.rows[0]
     const templateVars = {user: userObj}
-    console.log('test for templateVArs', templateVars)
+    //console.log('test for templateVArs', templateVars)
     if (userObj) {
      req.user = userObj;
     }
@@ -133,15 +133,17 @@ app.post("/logout", (req, res) => {
 
 
 app.get("/mystories", requireAuth, (req, res) => {
+  // console.log("REQ.PARAMS ", req.params);
+  // console.log("REQ.BODY ", req.body);
+  // console.log("REQ.SESSION ", req.session);
   const templateVars = {user: req.user }
   res.render("mystories", templateVars);
 })
 
 
-app.get("/stories/:id", (req, res) => {
+app.get("/stories/:storyID", (req, res) => {
   let username = req.session.username;
-  const storyID = req.params.id; 
-   console.log("SERVER REQ.BODY", req.body);
+  const storyID = Number(req.params.storyID)
    
    
    db.query(`SELECT * FROM users WHERE id='${req.session.user_id}';`)
@@ -156,11 +158,13 @@ app.get("/stories/:id", (req, res) => {
          
        const templateVars = {
          story, 
-         user
+         user,
+         storyID
        }
        
-       //console.log('test for templateVArs', templateVars)
-       if (user) {
+      if (user) {
+        console.log('test for templateVArs::::::::', templateVars)
+
          res.render("prospects", templateVars);
        }
        else {

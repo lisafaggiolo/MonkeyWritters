@@ -14,7 +14,7 @@ const db = new Pool(dbParams);
 const getUserId = function (username) {
   return db.query(`SELECT id FROM users
   WHERE users.username = $1;`, [username])
-  .then(res => res.rows[0])
+  .then(res => res.rows[0].id)
 }
 exports.getUserId = getUserId;
 
@@ -30,7 +30,10 @@ const addUser = function(user) {
   INSERT INTO users(name, username, password, avatar_url)
   VALUES ($1, $2, $3, $4)
   RETURNING *`, [user.name, user.username, user.password, user.avatar_url])
-  .then(res => res.rows[0])
+  .then(res => { 
+    console.log("dbHELPERS RES.ROW",res.rows[0].id)
+    return res.rows[0]
+  })
 }
 exports.addUser = addUser;
 
@@ -58,9 +61,9 @@ exports.getRatingsForStory = getRatingsForStory;
  * @param {boolean} closed The status of the story.
  * @return {Promise<{}>} A status of the story.
  */
-const getStatusOfAStory = function (closed) {
-  return db.query(`SELECT title FROM stories
-  WHERE closed = $1;`, [closed])
+const getStatusOfAStory = function () {
+  return db.query(`SELECT closed FROM stories
+  WHERE stories.id = ;`)
   .then(res => res.rows[0])
 }
 exports.getStatusOfAStory = getStatusOfAStory;
@@ -102,13 +105,13 @@ exports.addStory = addStory;
  * @return {Promise<{}>} A promise to the story.
  */
 const addProspects = function(prospect) {
-  if (!getStatusOfAStory) {
+ // if (getStatusOfAStory) {
   return db.query (`
   INSERT INTO prospects(content, created_at, user_id, story_id)
   VALUES ($1, $2, $3, $4)
   RETURNING *`, [prospect.content, prospect.created_at, prospect.user_id, prospect.story_id])
   .then(res => res.rows[0])
-  }
+//  }
 }
 exports.addProspects = addProspects;
 

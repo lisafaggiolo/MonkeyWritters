@@ -9,7 +9,7 @@ CREATE TABLE ratings (
   rating SMALLINT NOT NULL,
   date_rated DATE DEFAULT Now(),
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  story_id INTEGER REFERENCES users(id)ON DELETE CASCADE
+  story_id INTEGER REFERENCES stories(id)ON DELETE CASCADE
 
 );
 
@@ -18,6 +18,6 @@ CREATE TABLE prospects (
   content TEXT NOT NULL,
   created_at DATE DEFAULT Now(),
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  story_id INTEGER REFERENCES users(id)ON DELETE CASCADE
+  story_id INTEGER REFERENCES stories(id)ON DELETE CASCADE
 
 );
