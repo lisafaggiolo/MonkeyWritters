@@ -12,12 +12,24 @@ const loadstories = function() {
     $.ajax("/api/stories", { method: "GET",
       success: function(response) {
         console.log(`response: ${JSON.stringify(response)}`)
-        let storyElements = [];
+
+        console.log(response.stories)
+
+        for (const story of response.stories) {
+
+          if (story.closed) {
+            story.status = "completed"
+          } else {
+            story.status = "in progress"
+          }
+          console.log("STORY OF STORIES", story)
+        }
+
         for (const story of response.stories) {
           const storyElement = makeStoryElement(story)
-          storyElements.push(storyElement);
+          $("#render-stories").prepend(storyElement);
         }
-        $("#render-stories").prepend(storyElements)
+
       }
     });
   };
@@ -37,8 +49,8 @@ const loadstories = function() {
       </div>
       <div class="top-right">
           <div class="top-right-column">
-            <span>contributor</span>
-            <span>contributors.user_name</span>
+            <span>Status</span>
+            <span>${story.status}</span>
           </div>
           <div>
           <img src="/images/av6.png">
@@ -53,7 +65,9 @@ const loadstories = function() {
     ${story.content}
     </div>
     <footer>
-    <a class="nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a>
+    <div class="index-story">
+      <a class="${story.closed ? "hide": ""} nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a>
+    </div>
     </footer>
   </div>
     `

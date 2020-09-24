@@ -24,7 +24,9 @@ module.exports = (db) => {
     console.log("ROUTER /")
     db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id);`)
       .then(data => {
+
         const stories = data.rows;
+        //console.log(data.rows);
         res.json({ stories });
       })
       .catch(err => {
@@ -79,6 +81,7 @@ module.exports = (db) => {
         .json({ error: err.message });
     });
   })
+
 
 
 
