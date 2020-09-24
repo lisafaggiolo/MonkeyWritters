@@ -46,8 +46,11 @@ module.exports = (db) => {
     }
      
     dbHelpers.addUser(user)
-    .then(() => {
-      req.session.username = user.username;
+    .then((data) => {
+      //const id = dbHelpers.getUserId(user.username)
+      //console.log("DATA IN USERS", data)
+      req.session.username = data.username;
+      req.session.user_id = data.id;
       res.redirect('/')
     })
     .catch(err => {

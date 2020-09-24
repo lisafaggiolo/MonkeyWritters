@@ -20,8 +20,9 @@ app.use(cookieSession({
 
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM prospects;`)
+
+  router.get("/stories/:id", (req, res) => {
+    db.query(`SELECT * FROM prospects WHERE prospects.story_id = ${req.params.id};`)
       .then(data => {
         const prospects = data.rows;
         res.json({ prospects });
@@ -43,9 +44,9 @@ module.exports = (db) => {
       story_id : req.params.id
     }
     dbHelpers.addProspects(prospects)
-    .then(() => {
-
-      res.redirect('/')
+    .then((data) => {
+      console.log("DATA IN PROSPECTS", data);
+      res.redirect('/stories/:id')
     })
     .catch(err => {
       console.err("error =>", err.message)
