@@ -148,7 +148,9 @@ exports.updateStory = updateStory;
 const addVote = function(prospectID) {
   // if (getStatusOfAStory) {
    return db.query (`
-   update prospects set votes = votes + 1 WHERE id = $1;
+   UPDATE prospects 
+   SET votes = votes + 1 
+   WHERE id = $1;
    `, [prospectID])
    .then(res => res.rows[0])
  //  }
