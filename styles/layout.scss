@@ -1,7 +1,7 @@
 // See: https://sass-lang.com/
 
 body {
-  background-color: #a9a9a9;
+  background-color: whitesmoke;
   margin-top: 150px;
 
   h1 {
@@ -34,7 +34,7 @@ body {
   margin-left: 5%;
   margin-bottom: 100px;
   padding: 10px;
-  background-color: #dcdcdc;
+  background-color: #dee0FB;
   border-radius: 10px;
 
   header {
@@ -57,7 +57,7 @@ body {
 
 
 #new-story-box {
-  background-color: #dcdcdc;
+  background-color: #dee0FB;
   width: 90%;
   margin-left: 5%;
   border-radius: 10px;
@@ -86,7 +86,7 @@ body {
 
 #story-text {
   border-bottom: solid black 5px;
-  background:  #dcdcdc;
+  background:  #dee0FB;
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
@@ -127,7 +127,7 @@ body {
 
 #contribution-text {
   border-bottom: solid black 5px;
-  background: #dcdcdc;
+  background: #dee0FB;
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
@@ -141,7 +141,7 @@ body {
   font-family: inherit;
   border: 0;
   padding: 0;
-  background: #dcdcdc;
+  background: #dee0FB;
   cursor: pointer;
 }
 
@@ -163,7 +163,7 @@ body {
 
 
 #new-story-box2 {
-  background-color: #dcdcdc;
+  background-color: #dee0FB;
   width: 90%;
   margin-left: 5%;
   border-radius: 10px;
@@ -202,7 +202,7 @@ body {
 
 #story-text2 {
   border-bottom: solid black 5px;
-  background:  #dcdcdc;
+  background:  #dee0FB;
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
@@ -219,7 +219,7 @@ body {
 
 .storyTitleArea {
   border-bottom: solid black 5px;
-  background:  #dcdcdc;
+  background:  #dee0FB;
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
@@ -229,12 +229,10 @@ body {
 
 
 
-
-
-
 .navbar {
   display: flex;
   justify-content: space-between;
+  background-color: #9649BD;
 }
 
 .navbar2 {
@@ -252,4 +250,17 @@ body {
 
 .hide {
   display: none;
+}
+
+#prospect-content {
+  background:  #dee0FB;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+}
+
+.btn {
+  color: white;
+  background-color: #9649BD;
 }

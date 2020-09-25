@@ -161,7 +161,11 @@ module.exports = (db) => {
   router.get("/:storyID", (req, res) => {
     console.log("STORYID")
     console.log('req.params.storyID', req.params.storyID)
-    db.query(`SELECT * FROM prospects WHERE prospects.story_id = ${req.params.storyID};`)
+
+    db.query(`SELECT prospects.*, users.username as username, users.avatar_url as avatar 
+    FROM prospects 
+    JOIN users ON users.id = prospects.user_id
+    WHERE prospects.story_id = ${req.params.storyID};`)
       .then(data => {
         const prospects = data.rows;
         res.json({ prospects });

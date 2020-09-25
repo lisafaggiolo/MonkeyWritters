@@ -34,7 +34,7 @@
 
 <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top">
 
     <div class="navbar2">
       <div class="navbar2a">
@@ -67,7 +67,7 @@
           <form method="POST" action="/logout" class="form-inline">
             <img src="<%= user.avatar_url %>" alt="">
             <span style="color: white;"> <%= user.username %></span>
-          <button type="submit" class="btn btn-success logoutbtn"><img src="/images/logout.png" title="Logout" alt=""></button>
+          <button type="submit" class="btn logoutbtn"><img src="/images/logout.png" title="Logout" alt=""></button>
         </form>
 
         <% } else { %>

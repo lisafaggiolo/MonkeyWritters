@@ -53,7 +53,7 @@ const loadstories = function() {
             <span>${story.status}</span>
           </div>
           <div>
-          <img src="/images/av6.png">
+          
           </div>
       </div>
     </header>

@@ -105,7 +105,7 @@ app.get("/", (req, res) => {
  //needs passwords hashed
  app.post("/login", (req, res) => {
    const { username, password } = req.body
-   console.log(username, password)
+   //console.log(username, password)
      db.query(`SELECT * FROM users WHERE username='${username}';`)
       .then (data => {
         const dbPassword = data.rows[0].password
@@ -156,7 +156,7 @@ app.get("/stories/:storyID", (req, res) => {
      JOIN users on users.id = stories.user_id
      WHERE stories.id='${storyID}';`)
      .then (data => {
-       console.log("SERVER DATA =>", data);
+       //console.log("SERVER DATA =>", data);
        let story = data.rows[0]
 
        //console.log('SERVER STORY =>', story);
