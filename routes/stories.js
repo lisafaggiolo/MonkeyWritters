@@ -66,6 +66,37 @@ module.exports = (db) => {
   });
 
 
+  router.post("/:storyID/prospects/:prospectsID", (req, res) => {
+    const user_id = req.session.user_id;
+    const storyID = req.params.storyID;
+    const prospectsID = req.params.prospectsID
+    
+    console.log("USER ID",user_id)
+    console.log("STORY ID", storyID)
+    console.log("PROSPECT ID", prospectsID)
+
+
+
+    db.query(`SELECT prospects.content
+    FROM prospects 
+    WHERE prospects.id = ${prospectsID};`)
+    .then(data => {
+      const contribution = data.rows[0].content.toString();
+      console.log("CONTRIBUTION =>",contribution);
+      db.query(`UPDATE stories
+      SET content = CONCAT(${contribution}, stories.content)
+      WHERE id = ${storyID};`)
+      //UPDATE prospects SET approved = 1 WHERE id = ${prospectsID};`)
+      res.redirect(`/stories/${storyID}`);
+  
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
   router.post("/:storyID/prospects/:prospectID/vote", (req, res) => {
     const prospectID = req.params.prospectID;
     const storyID = req.params.storyID;
@@ -82,6 +113,7 @@ module.exports = (db) => {
   })
 
 
+  
 
 
    router.get("/mystories", (req, res) => {

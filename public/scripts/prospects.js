@@ -75,20 +75,25 @@ function makeStoryElement(story) {
 
         </div>
     </div>
+
   </header>
-  <div class="text-section">
+  <form method= "POST" action= "/api/stories/${$(storyID).val()}/prospects/${story.id}">
+  <textarea readonly name="prospect-content" id="prospect-content" class="text-section">
   ${story.content}
-  </div>
+  </textarea>
   <footer>
+  <button class="btn btn-success">Add this to my story</button>
+  <input type="hidden" name="prospectID" id="prospectID" value="1"/>
+  </form>
   <form method= "POST" action= "/api/stories/${$(storyID).val()}/prospects/${story.id}/vote">
   <div id="voteCounter">
     <span><button type="submit"  class="voteButton"><img src="/images/vote.png" alt="">Upvote this contribution</button></span>
     <span>${story.votes}</span>
   </div>
-  <button class="btn btn-success">Add this to my story</button>
-    </form>
+  </form>  
   </footer>
-</div>
+  </form>
+  </div>
   `
 }
 
