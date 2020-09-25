@@ -46,9 +46,9 @@ body {
   }
 
   footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
     font-size: 1.5em;
     margin-bottom: 0;
     color: grey;
@@ -118,9 +118,10 @@ body {
 }
 
 .text-section {
-  width: 90%;
-  margin-left: 5%;
+  width: 80%;
+  margin-left: 10%;
   margin-bottom: 20px;
+  font-size: 1.5em;
 }
 
 
@@ -133,6 +134,120 @@ body {
   border-bottom-style: groove;
   width: 90%;
   margin-left: 5%;
+}
+
+.voteButton {
+  font-size: 100%;
+  font-family: inherit;
+  border: 0;
+  padding: 0;
+  background: #dcdcdc;
+  cursor: pointer;
+}
+
+.story-owner {
+  font-weight: bold;
+  color: black;
+}
+
+.storyTitle {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+#voteCounter {
+  text-align: right;
+}
+
+
+
+#new-story-box2 {
+  background-color: #dcdcdc;
+  width: 90%;
+  margin-left: 5%;
+  border-radius: 10px;
+  margin-bottom: 100px;
+  padding-bottom: 50px;
+  padding-top: 40px;
+
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    // margin-left: 5%;
+    // padding: 20px 0;
+  }
+
+  label {
+    // margin-top: 20px;
+    // margin-bottom: 60px;
+    // margin-left: 5%;
+    font-size: 40px;
+    font-weight: 700;
+    color: grey;
+  }
+
+  form {
+    width: 90%;
+    margin-left: 5%;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}
+
+
+#story-text2 {
+  border-bottom: solid black 5px;
+  background:  #dcdcdc;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  width: 90%;
+  // margin-left: 5%;
+}
+
+.subtitle {
+  font-size: 1.75em;
+  padding-top: 10px;
+  color: grey;
+}
+
+.storyTitleArea {
+  border-bottom: solid black 5px;
+  background:  #dcdcdc;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+}
+
+
+
+
+
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar2 {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.navbar3 {
+ margin-right: 50px;
+
+ button {
+   margin-left: 50px;
+ }
 }
 
 .hide {

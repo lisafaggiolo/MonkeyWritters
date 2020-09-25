@@ -21,10 +21,9 @@ app.use(cookieSession({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    console.log("ROUTER /")
     db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id);`)
       .then(data => {
-        
+
         const stories = data.rows;
         //console.log(data.rows);
         res.json({ stories });
@@ -39,7 +38,7 @@ module.exports = (db) => {
 
 
   router.post("/:storyID/prospects", (req, res) => {
-    console.log("STORYID/prospects")
+   // console.log("STORYID/prospects")
     const user_id = req.session.user_id;
     const { contributeText } = req.body;
 
@@ -67,11 +66,29 @@ module.exports = (db) => {
   });
 
 
-   router.get("/mystories", (req, res) => { 
+  router.post("/:storyID/prospects/:prospectID/vote", (req, res) => {
+    const prospectID = req.params.prospectID;
+    const storyID = req.params.storyID;
+    console.log(storyID);
+    dbHelpers.addVote(prospectID)
+    .then(() => {
+      res.redirect(`/stories/${storyID}`);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  })
+
+
+
+
+   router.get("/mystories", (req, res) => {
      console.log("REQ.PARAMS ", req.params);
      console.log("REQ.BODY ", req.body);
      console.log("REQ.SESSION ", req.session);
-    
+
       db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id) where user_id ='${req.session.user_id}';`)
         .then(data => {
           const stories = data.rows;
@@ -81,9 +98,10 @@ module.exports = (db) => {
           res
             .status(500)
             .json({ error: err.message });
-      
+
         });
    });
+
 
   router.post("/mystories", (req, res) => {
     console.log("mystories - POST")
@@ -106,10 +124,7 @@ module.exports = (db) => {
       console.err("error =>", err.message)
     });
 
-
   });
-
-
 
   router.get("/:storyID", (req, res) => {
     console.log("STORYID")
@@ -125,6 +140,9 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+
+
 
 
   return router;

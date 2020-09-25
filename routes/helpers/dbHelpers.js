@@ -30,7 +30,7 @@ const addUser = function(user) {
   INSERT INTO users(name, username, password, avatar_url)
   VALUES ($1, $2, $3, $4)
   RETURNING *`, [user.name, user.username, user.password, user.avatar_url])
-  .then(res => { 
+  .then(res => {
     console.log("dbHELPERS RES.ROW",res.rows[0].id)
     return res.rows[0]
   })
@@ -144,3 +144,14 @@ WHERE prospects.content LIKE '%$1%';`, [options, title])
 exports.updateStory = updateStory;
 
 
+// ------------------------------------
+const addVote = function(prospectID) {
+  // if (getStatusOfAStory) {
+   return db.query (`
+   update prospects set votes = votes + 1 WHERE id = $1;
+   `, [prospectID])
+   .then(res => res.rows[0])
+ //  }
+ }
+ exports.addVote = addVote;
+//  -----------------------------------

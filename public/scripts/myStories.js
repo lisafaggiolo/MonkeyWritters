@@ -1,14 +1,14 @@
 $(() => {
   console.log("Hello")
   loadMyStories()
-  
-      
+
+
 });
 
 
 const loadMyStories = function() {
   console.log("stories are loading????????????????????")
-  
+
     $.ajax({
       url:"/api/stories/mystories",
       method:"GET"
@@ -23,7 +23,7 @@ const loadMyStories = function() {
     });
   };
 
- 
+
 function makeStoryElement(story) {
     return `
     <div class="box">
@@ -34,7 +34,7 @@ function makeStoryElement(story) {
           </div>
           <div class="top-left-column">
               <span>creator</span>
-              <span>${story.owner}</span>
+              <span class="story-owner">${story.owner}</span>
           </div>
       </div>
       <div class="top-right">
@@ -47,14 +47,16 @@ function makeStoryElement(story) {
           </div>
       </div>
     </header>
-    ${story.title}
+    <div class="storyTitle">
+    <span>${story.title}</span>
+    </div>
     <div class="text-section">
-  
+
+
     ${story.content}
     </div>
     <footer>
-    <a class="nav-item nav-link" href="/stories/${story.id}">Add contribution to story</a>
-      <span>rate this prospect</span>
+    <a class="nav-item nav-link" href="/stories/${story.id}">Contribution to this story</a>
     </footer>
   </div>
     `
