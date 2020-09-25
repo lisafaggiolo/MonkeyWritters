@@ -21,7 +21,6 @@ app.use(cookieSession({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    console.log("ROUTER /")
     db.query(`select stories.*,users.username as owner, users.avatar_url from stories join users on (users.id = stories.user_id);`)
       .then(data => {
 
@@ -39,7 +38,7 @@ module.exports = (db) => {
 
 
   router.post("/:storyID/prospects", (req, res) => {
-    console.log("STORYID/prospects")
+   // console.log("STORYID/prospects")
     const user_id = req.session.user_id;
     const { contributeText } = req.body;
 
