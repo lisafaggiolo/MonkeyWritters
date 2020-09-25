@@ -18,6 +18,7 @@ CREATE TABLE prospects (
   content TEXT NOT NULL,
   created_at DATE DEFAULT Now(),
   votes INTEGER DEFAULT 0,
+  approved INTEGER DEFAULT 0,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   story_id INTEGER REFERENCES stories(id)ON DELETE CASCADE
 

@@ -85,6 +85,7 @@ function makeStoryElement(story) {
     <span><button type="submit"  class="voteButton"><img src="/images/vote.png" alt="">Upvote this contribution</button></span>
     <span>${story.votes}</span>
   </div>
+  <button class="btn btn-success">Add this to my story</button>
     </form>
   </footer>
 </div>
