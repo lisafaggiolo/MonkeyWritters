@@ -5,8 +5,8 @@ VALUES (5, 1, 1),
 (5, 3, 3),
 (3, 4, 4);
 INSERT INTO prospects ( content, user_id, story_id)
-VALUES ('Hey sunshine', 1, 1),
-('you', 2, 2),
-('are', 3, 3),
-('good', 4 ,4);
+VALUES ('Hey sunshine', 1, 4),
+('you', 2, 3),
+('are', 3, 2),
+('hmmm...', 4 ,1);
 

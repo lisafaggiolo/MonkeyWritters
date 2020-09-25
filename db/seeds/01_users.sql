@@ -8,6 +8,6 @@ VALUES ('Alice','alice sue', 'password1' ,'/images/av1.png'),
 INSERT INTO stories (title, content, closed, user_id)
 VALUES ('Breez', 'beautiful weather', true, 1),
 ('weather', 'nice weather', true, 2),
-('hot', 'hot weather', true, 3),
-('cold', 'cold weather', true, 4),
-('nice', 'warm weather', false, 4);
+('The Real 1%', 'Our society would be better much better off if we killed the worst 1% every year.. At least it is what they thought. Today is the hundredth anniversary of the 1% election, and the notion of the “worst” is getting really tricky.', false, 3),
+('The Forties','In the year 2145, I live in a world where every single habitant of the Earth has their DNA carefully genetically designed for something to help the community. But I despises what I was created for and I cannot tell anyone.. This has never happened before.', false, 4),
+('The greatest argument', 'In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat: it was a hobbit-hole, and that means comfort..', false, 4);

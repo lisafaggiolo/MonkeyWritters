@@ -1,3 +1,5 @@
+//const prospects = require("../../routes/prospects");
+
 $(() => {
 
 $("#contributeStory-form").submit(submitForm);
@@ -12,7 +14,7 @@ const submitForm = function(event) {
   event.preventDefault();
   const $form = $(this);
   const data = $form.serialize();
-  console.log("FORM DATA =>",data);
+  //console.log("FORM DATA =>",data);
   const url = $("#contributeStory-form").attr("action");
  // const url = $form.attr('action');
   console.log("URL =>", url);
@@ -31,7 +33,7 @@ const submitForm = function(event) {
 
 const loadContributions = function() {
   const storyID = $('#storyID').val()
-  console.log("STORY ID =>", storyID);
+  //console.log("STORY ID =>", storyID);
   const url = `/api/stories/${storyID}`;
  // console.log("URL =>" , url);
 
@@ -40,11 +42,11 @@ const loadContributions = function() {
 
     .then((response) => {
 
-      console.log("prospects loadiiiiing", response);
-      console.log(`response: ${JSON.stringify(response)}`)
+      //console.log("prospects loadiiiiing", response);
+      //console.log(`response: ${JSON.stringify(response)}`)
 
       for (const prospect of response.prospects) {
-        console.log(storyID);
+        console.log(prospect);
         const prospectElement = makeStoryElement(prospect)
         $("#render-prospects").prepend(prospectElement)
       }
@@ -60,11 +62,11 @@ function makeStoryElement(story) {
   <header>
     <div class="top-left">
         <div>
-          <img src="${story.avatar_url}">
+          <img src="${story.avatar}">
         </div>
         <div class="top-left-column">
             <span>Monkey</span>
-            <span class="story-owner">${story.owner}</span>
+            <span class="story-owner">${story.username}</span>
         </div>
     </div>
     <div class="top-right">
@@ -82,7 +84,7 @@ function makeStoryElement(story) {
   ${story.content}
   </textarea>
   <footer>
-  <button class="btn btn-success">Add this to my story</button>
+  <button class="btn">Add this to my story</button>
   <input type="hidden" name="prospectID" id="prospectID" value="1"/>
   </form>
   <form method= "POST" action= "/api/stories/${$(storyID).val()}/prospects/${story.id}/vote">
