@@ -81,13 +81,15 @@ module.exports = (db) => {
     FROM prospects 
     WHERE prospects.id = ${prospectsID};`)
     .then(data => {
-      const contribution = data.rows[0].content.toString();
+      const contribution = data.rows[0].content;
       console.log("CONTRIBUTION =>",contribution);
       db.query(`UPDATE stories
-      SET content = CONCAT(${contribution}, stories.content)
+      SET prospect = "Hello there"
       WHERE id = ${storyID};`)
-      //UPDATE prospects SET approved = 1 WHERE id = ${prospectsID};`)
-      res.redirect(`/stories/${storyID}`);
+      .then(() => {
+        res.redirect(`/stories/${storyID}`);
+      })
+      
   
     })
     .catch(err => {

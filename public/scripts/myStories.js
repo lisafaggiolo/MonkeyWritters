@@ -39,11 +39,10 @@ function makeStoryElement(story) {
       </div>
       <div class="top-right">
           <div class="top-right-column">
-            <span>contributor</span>
-            <span>contributors.user_name</span>
+            <span></span>
+            <span></span>
           </div>
           <div>
-          <img src="/images/av6.png">
           </div>
       </div>
     </header>

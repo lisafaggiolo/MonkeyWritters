@@ -46,7 +46,7 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const storiesRoutes = require("./routes/stories");
-const prospectsRoutes = require("./routes/prospects")
+//const prospectsRoutes = require("./routes/prospects")
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
@@ -105,7 +105,7 @@ app.get("/", (req, res) => {
  //needs passwords hashed
  app.post("/login", (req, res) => {
    const { username, password } = req.body
-   //console.log(username, password)
+   console.log(username, password)
      db.query(`SELECT * FROM users WHERE username='${username}';`)
       .then (data => {
         const dbPassword = data.rows[0].password
@@ -156,7 +156,7 @@ app.get("/stories/:storyID", (req, res) => {
      JOIN users on users.id = stories.user_id
      WHERE stories.id='${storyID}';`)
      .then (data => {
-       //console.log("SERVER DATA =>", data);
+       console.log("SERVER DATA =>", data);
        let story = data.rows[0]
 
        //console.log('SERVER STORY =>', story);
