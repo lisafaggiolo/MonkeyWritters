@@ -9,8 +9,6 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
-const { request } = require("express");
-const dbHelpers = require('./routes/helpers/dbHelpers.js');
 
 const cookieSession = require("cookie-session");
 
@@ -39,21 +37,19 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
 const storiesRoutes = require("./routes/stories");
-//const prospectsRoutes = require("./routes/prospects")
+
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/stories", storiesRoutes(db));
-
-//app.use("/api/prospects", prospectsRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
@@ -66,7 +62,7 @@ app.use((req, res, next) => {
   .then (data => {
     //console.log('this is a test for data.rows', data.rows)
     let userObj = data.rows[0]
-    const templateVars = {user: userObj}
+    //Sconst templateVars = {user: userObj}
     //console.log('test for templateVArs', templateVars)
     if (userObj) {
      req.user = userObj;
@@ -88,7 +84,7 @@ function requireAuth(req, res, next) {
 }
 
 
-
+//INDEX ROUTE
 app.get("/", (req, res) => {
   const templateVars = {user: req.user }
  res.render("index", templateVars);
@@ -96,13 +92,16 @@ app.get("/", (req, res) => {
 
 
 
+
+
+//LOGIN ROUTES
  app.get("/login", (req, res) => {
   const templateVars = {user: req.user }
    res.render("login", templateVars);
  });
 
 
- //needs passwords hashed
+ 
  app.post("/login", (req, res) => {
    const { username, password } = req.body
    console.log(username, password)
@@ -120,12 +119,17 @@ app.get("/", (req, res) => {
 
 
 
+
+
+//REGISTRATION
  app.get("/register", (req, res) => {
   const templateVars = { user: req.user }
    res.render("register", templateVars);
  });
 
 
+
+//LOGOUT
 app.post("/logout", (req, res) => {
  req.session.user_id = null;
  res.redirect("/");
@@ -133,6 +137,7 @@ app.post("/logout", (req, res) => {
 
 
 
+//ROUTES FOR USER STORY
 app.get("/mystories", requireAuth, (req, res) => {
   // console.log("REQ.PARAMS ", req.params);
   // console.log("REQ.BODY ", req.body);
@@ -143,7 +148,7 @@ app.get("/mystories", requireAuth, (req, res) => {
 
 
 app.get("/stories/:storyID", (req, res) => {
-  let username = req.session.username;
+  //let username = req.session.username;
   const storyID = Number(req.params.storyID)
 
 

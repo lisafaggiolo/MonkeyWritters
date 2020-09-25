@@ -11,9 +11,8 @@ loadstories();
 const loadstories = function() {
     $.ajax("/api/stories", { method: "GET",
       success: function(response) {
-        console.log(`response: ${JSON.stringify(response)}`)
-
-        console.log(response.stories)
+        //console.log(`response: ${JSON.stringify(response)}`)
+        //console.log(response.stories)
 
         for (const story of response.stories) {
 
@@ -22,7 +21,7 @@ const loadstories = function() {
           } else {
             story.status = "in progress"
           }
-          console.log("STORY OF STORIES", story)
+          //console.log("STORY OF STORIES", story)
         }
 
         for (const story of response.stories) {
