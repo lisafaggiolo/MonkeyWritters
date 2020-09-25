@@ -86,6 +86,7 @@ function makeStoryElement(story) {
     <span>${story.votes}</span>
   </div>
   <button class="btn btn-success">Add this to my story</button>
+  ${story.user_id}
     </form>
   </footer>
 </div>
